@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 22:27:38 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/27 19:28:35 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 00:54:01 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 
 #pragma region "Includes"
 
-	#include "utils.h"
 	#include "network.h"
-
-	#include <unistd.h>			// close, sleep, getuid
-	#include <signal.h>			// signal
-	#include <stdio.h>			// printf
-	#include <string.h>			// strerror
 
 #pragma endregion
 
 #pragma region "Structures"
 
 	typedef struct s_malcolm {
-		bool				running;
+		int					running;
+		int					sockfd;
+		unsigned int		if_index;
 		char				if_name[16];
-		char				source_ip[16];
-		char				target_ip[16];
 		struct sockaddr_in	source_addr;
 		struct sockaddr_in	target_addr;
+		uint8_t				source_mac[6];
+		struct arp_packet	packet;
 	}	t_malcolm;
 
 #pragma endregion

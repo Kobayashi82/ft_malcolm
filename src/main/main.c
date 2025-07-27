@@ -6,13 +6,17 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/27 19:33:31 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 01:38:19 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Includes"
 
 	#include "malcolm.h"
+
+	#include <stdio.h>
+	#include <unistd.h>
+	#include <signal.h>
 
 #pragma endregion
 
@@ -24,7 +28,13 @@
 
 #pragma region "Signals"
 
-	static void termination_handler(int sig) { (void) sig; g_malcolm.running = false; }
+	static void termination_handler(int sig) {
+		(void) sig;
+		g_malcolm.running = 0;
+
+		if (g_malcolm.sockfd != -1) close(g_malcolm.sockfd);
+		// freeifaddrs(ifaddr);
+	}
 
 	static int set_signals() {
 		signal(SIGINT,  termination_handler);
@@ -37,67 +47,35 @@
 
 #pragma endregion
 
-#pragma region "Main"
+#pragma region "Initialize"
 
-	int main(int argc, char **argv) {
-		// ** TEMPORAL **
-			static char *my_argv[6] = { "ft_malcolm", "172.31.191.100", "af:af:af:af:af:af", "172.31.191.102", "af:af:af:af:af:af", NULL };
-			argv = my_argv; argc = 5;
-		// ** TEMPORAL **
-
-		int result = set_signals();
-		if (!result && parse_arguments(argc, argv))	result = 1;
-		if (!result && get_interface())				result = 1;
-
-		// if (!result && create_socket())			result = 1;
-		// if (!result && wait_request())			result = 1;
-		// if (!result && send_reply())				result = 1;
-		if (!result) fprintf(stdout, "Exiting program...\n");
-
-		// clean (if necessary)
-
-		return (result);
+	static void initialize() {
+		g_malcolm.sockfd = -1;
 	}
 
 #pragma endregion
 
-#pragma region "Information"
+#pragma region "Main"
 
-	// 1. Interfaz de red
-	//
-	//	Usar getifaddrs() para obtener una lista de interfaces
-	//	Encontrar una interfaz activa (eth0)
-	//
-	//	"Found available interface: <interface>"
+	int main(int argc, char **argv) {
 
+		// // ** TEMPORAL **
+		// 	static char *my_argv[6] = { "ft_malcolm", "172.31.191.100", "af:af:af:af:af:af", "172.31.191.102", "af:af:af:af:af:af", NULL };
+		// 	argv = my_argv; argc = 5;
+		// // ** TEMPORAL **
 
-	// 2. Crear socket
-	//
-	//	socket() con parámetros apropiados para capturar y enviar paquetes ARP
-	//	Probablemente SOCK_RAW y a nivel de layer 2
+		initialize();
 
+		int result = set_signals();
+		if (!result) result = parse_arguments(argc, argv);
+		if (!result) result = create_socket();
+		if (!result) result = get_interface();
+		if (!result) result = receive_request();
+		if (!result) result = send_reply();
 
-	// 3. Escuchar ARP requests (loop)
-	//
-	//	Usar recvfrom() para capturar paquetes
-	//	Filtrar solo ARP requests que:
-	//
-	//	Sean broadcast y pregunten por source_ip y vengan de target_ip
+		if (result != 1) fprintf(stdout, "\rExiting program...\n");
 
-
-	// 4. Cuando detecta la ARP request correcta:
-	//
-	//	"An ARP request has been broadcast."
-	//	"    mac address of request: <mac>"
-	//	"    IP address of request: <ip>"
-	//	"Now sending an ARP reply to the target address with spoofed source, please wait..."
-
-
-	// 5. Enviar ARP reply
-	//
-	//	Construir paquete ARP reply con source_mac falsa
-	//	sendto() al target
-	//
-	//	"Sent an ARP reply packet, you may now check the arp table on the target."
+		return (result != 1);
+	}
 
 #pragma endregion

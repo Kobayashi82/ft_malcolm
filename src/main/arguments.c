@@ -6,13 +6,16 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 22:27:45 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/27 19:32:45 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 00:59:13 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Includes"
 
 	#include "malcolm.h"
+	#include "utils.h"
+
+	#include <stdio.h>
 
 #pragma endregion
 
@@ -22,8 +25,6 @@
 		if (!ip) return (1);
 
 		sockaddr->sin_family = AF_INET;
-		ft_strlcpy(g_malcolm.source_ip, ip, sizeof(g_malcolm.source_ip));
-		ft_strlcpy(g_malcolm.target_ip, ip, sizeof(g_malcolm.target_ip));
 
 		return (inet_pton(AF_INET, ip, &sockaddr->sin_addr) != 1);
 	}
@@ -35,7 +36,7 @@
 	static int validate_mac(const char *mac) {
 		if (!mac) return (1);
 
-		int len = ft_strlen(mac);;
+		int len = ft_strlen(mac);
 		if (len != 17)	return (1);
 
 		for (int i = 0; i < 17; ++i) {
@@ -43,7 +44,10 @@
 			else { if (!((mac[i] >= '0' && mac[i] <= '9') || (mac[i] >= 'a' && mac[i] <= 'f') || (mac[i] >= 'A' && mac[i] <= 'F'))) return (1); }
 		}
 
-		return (0);
+		return (sscanf(mac, "%02x:%02x:%02x:%02x:%02x:%02x",
+					(unsigned int*)&g_malcolm.source_mac[0], (unsigned int*)&g_malcolm.source_mac[1],
+					(unsigned int*)&g_malcolm.source_mac[2], (unsigned int*)&g_malcolm.source_mac[3],
+					(unsigned int*)&g_malcolm.source_mac[4], (unsigned int*)&g_malcolm.source_mac[5]) == 6 ? 0 : 1);
 	}
 
 #pragma endregion
