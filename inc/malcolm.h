@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 22:27:38 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/27 13:15:58 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:28:35 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@
 #pragma region "Structures"
 
 	typedef struct s_malcolm {
-		bool		running;
+		bool				running;
+		char				if_name[16];
+		char				source_ip[16];
+		char				target_ip[16];
+		struct sockaddr_in	source_addr;
+		struct sockaddr_in	target_addr;
 	}	t_malcolm;
 
 #pragma endregion

@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 22:27:45 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/27 14:58:58 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:32:45 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 
 #pragma region "Validate IP"
 
-	static int validate_ip(const char *ip) {
-		struct sockaddr_in sa;
+	static int validate_ip(const char *ip, struct sockaddr_in *sockaddr) {   
+		if (!ip) return (1);
 
-		if (!ip || inet_pton(AF_INET, ip, &(sa.sin_addr)) != 1) return (1);
+		sockaddr->sin_family = AF_INET;
+		ft_strlcpy(g_malcolm.source_ip, ip, sizeof(g_malcolm.source_ip));
+		ft_strlcpy(g_malcolm.target_ip, ip, sizeof(g_malcolm.target_ip));
 
-		return (0);
+		return (inet_pton(AF_INET, ip, &sockaddr->sin_addr) != 1);
 	}
 
 #pragma endregion
@@ -31,9 +33,9 @@
 #pragma region "Validate MAC"
 
 	static int validate_mac(const char *mac) {
-		int len = ft_strlen(mac);;
+		if (!mac) return (1);
 
-		if (!mac)		return (1);
+		int len = ft_strlen(mac);;
 		if (len != 17)	return (1);
 
 		for (int i = 0; i < 17; ++i) {
@@ -51,11 +53,11 @@
 	int parse_arguments(int argc, char **argv) {
 		int result = 0;
 
-		if (argc != 5)							{ fprintf(stderr, "ft_malcolm: expected 4 arguments\n\n");					result = 1; }
-		if (!result && validate_ip(argv[1]))	{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[1]);		result = 1; }
-		if (!result && validate_mac(argv[2]))	{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[2]);	result = 1; }
-		if (!result && validate_ip(argv[3]))	{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[3]);		result = 1; }
-		if (!result && validate_mac(argv[4]))	{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[4]);	result = 1; }
+		if (argc != 5)													{ fprintf(stderr, "ft_malcolm: expected 4 arguments\n\n");					result = 1; }
+		if (!result && validate_ip(argv[1], &g_malcolm.source_addr))	{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[1]);		result = 1; }
+		if (!result && validate_mac(argv[2]))							{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[2]);	result = 1; }
+		if (!result && validate_ip(argv[3], &g_malcolm.target_addr))	{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[3]);		result = 1; }
+		if (!result && validate_mac(argv[4]))							{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[4]);	result = 1; }
 
 		if (result) fprintf(stderr, "Usage: ft_malcolm <source_ip> <source_mac> <target_ip> <target_mac>\n");
 

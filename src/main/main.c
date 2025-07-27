@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/27 15:10:58 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:33:31 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@
 
 	int main(int argc, char **argv) {
 		// ** TEMPORAL **
-			static char *my_argv[6] = { "ft_malcolm", "127.0.0.1", "af:af:af:af:af:af", "127.0.0.1", "af:af:af:af:af:af", NULL };
+			static char *my_argv[6] = { "ft_malcolm", "172.31.191.100", "af:af:af:af:af:af", "172.31.191.102", "af:af:af:af:af:af", NULL };
 			argv = my_argv; argc = 5;
 		// ** TEMPORAL **
 
 		int result = set_signals();
 		if (!result && parse_arguments(argc, argv))	result = 1;
-		// if (!result && get_interface())				result = 1;
-		// if (!result && create_socket())				result = 1;
-		// if (!result && wait_request())				result = 1;
+		if (!result && get_interface())				result = 1;
+
+		// if (!result && create_socket())			result = 1;
+		// if (!result && wait_request())			result = 1;
 		// if (!result && send_reply())				result = 1;
 		if (!result) fprintf(stdout, "Exiting program...\n");
 

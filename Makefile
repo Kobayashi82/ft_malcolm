@@ -6,7 +6,7 @@
 #    By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/05 21:39:40 by vzurera-          #+#    #+#              #
-#    Updated: 2025/07/27 14:31:31 by vzurera-         ###   ########.fr        #
+#    Updated: 2025/07/27 17:13:19 by vzurera-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,8 @@ SRC_DIR		= src/
 # ── FILES ── #
 # ─────────── #
 
-SRCS		= main/main.c main/arguments.c	\
-			  network/network.c				\
+SRCS		= main/main.c main/arguments.c			\
+			  network/network.c network/interface.c	\
 			  utils/utils.c
 
 # ───────────────────────────────────────────────────────────── #
