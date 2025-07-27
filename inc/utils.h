@@ -1,15 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/05 21:46:51 by vzurera-         ###   ########.fr       */
+/*   Created: 2025/07/27 13:12:28 by vzurera-          #+#    #+#             */
+/*   Updated: 2025/07/27 13:15:46 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main() {
-	return (0);
-}
+#pragma once
+
+#pragma region "Includes"
+
+	#include <stddef.h>
+
+#pragma endregion
+
+#pragma region "Methods"
+
+	size_t	ft_strlen(const char *str);
+
+#pragma endregion
