@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 22:27:45 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 00:59:13 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:44:12 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,13 @@
 		}
 
 		unsigned int temp[6];
-		int result = sscanf(mac, "%02x:%02x:%02x:%02x:%02x:%02x",
-					&temp[0], &temp[1], &temp[2], &temp[3], &temp[4], &temp[5]);
-		
+		int result = sscanf(mac, "%02x:%02x:%02x:%02x:%02x:%02x", &temp[0], &temp[1], &temp[2], &temp[3], &temp[4], &temp[5]);
+
 		if (result == 6) {
-			for (int i = 0; i < 6; i++) {
-				mac_addr[i] = (uint8_t)temp[i];
-			}
+			for (int i = 0; i < 6; i++) mac_addr[i] = (uint8_t)temp[i];
 			return (0);
 		}
+
 		return (1);
 	}
 

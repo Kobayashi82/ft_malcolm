@@ -6,3 +6,5 @@ sudo ./ft_malcolm 192.168.1.12 aa:bb:cc:dd:ee:ff 192.168.1.150 D8-43-AE-BA-D8-57
 
 ARP -a
 192.168.1.12		ba-51-7f-42-a0-13	dinámico
+
+>netsh interface ip delete arpcache

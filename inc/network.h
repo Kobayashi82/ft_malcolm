@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:40:08 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:37:19 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:45:58 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 #pragma region "Defines"
 
 	#define SO_BINDTODEVICE	25
-	#define ETH_P_IP		0x0800
-	#define ETH_P_ARP		0x0806
 	#define ARP_REQUEST		1
 	#define ARP_REPLY		2
+	#define ETH_P_IP		0x0800
+	#define ETH_P_ARP		0x0806
 
 #pragma endregion
 
 #pragma region "Structures"
 
-	struct __attribute__((__packed__)) arp_packet {
+	struct arp_packet {
 		// Ethernet header
 		uint8_t  dest_mac[6];		// Target MAC address (FF:FF:FF:FF:FF:FF for broadcast)
 		uint8_t  src_mac[6];		// Sender MAC address

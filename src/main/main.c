@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:37:27 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:45:16 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,11 @@
 
 #pragma endregion
 
-#pragma region "Initialize"
-
-	static void initialize() {
-		ft_memset(&g_malcolm, 0, sizeof(t_malcolm));
-		g_malcolm.sockfd = -1;
-	}
-
-#pragma endregion
-
 #pragma region "Main"
 
 	int main(int argc, char **argv) {
-
-		// // ** TEMPORAL **
-		// 	static char *my_argv[6] = { "ft_malcolm", "172.31.191.100", "af:af:af:af:af:af", "172.31.191.102", "af:af:af:af:af:af", NULL };
-		// 	argv = my_argv; argc = 5;
-		// // ** TEMPORAL **
-
-		initialize();
+		ft_memset(&g_malcolm, 0, sizeof(t_malcolm));
+		g_malcolm.sockfd = -1;
 
 		int result = set_signals();
 		if (!result) result = parse_arguments(argc, argv);
