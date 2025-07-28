@@ -33,7 +33,7 @@
 
 		// === ETHERNET HEADER ===
 		ft_memcpy(reply.dest_mac, packet->sender_mac, 6);
-		ft_memcpy(reply.src_mac, g_malcolm.source_mac, 6); // spofed
+		ft_memcpy(reply.src_mac, g_malcolm.spoofed_mac, 6); // spofed
 		reply.eth_type = htons(ETH_P_ARP);
 
 		// === ARP HEADER ===
@@ -44,7 +44,7 @@
 		reply.operation = htons(2);                  // ARP Reply
 
 		// Sender (spofeados)
-		ft_memcpy(reply.sender_mac, g_malcolm.source_mac, 6);
+		ft_memcpy(reply.sender_mac, g_malcolm.spoofed_mac, 6);
 		reply.sender_ip = g_malcolm.source_addr.sin_addr.s_addr;
 
 		// Target

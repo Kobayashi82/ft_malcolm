@@ -33,7 +33,7 @@
 
 #pragma region "Validate MAC"
 
-	static int validate_mac(const char *mac) {
+	static int validate_mac(const char *mac, uint8_t *mac_addr) {
 		if (!mac) return (1);
 
 		int len = ft_strlen(mac);
@@ -45,9 +45,9 @@
 		}
 
 		return (sscanf(mac, "%02x:%02x:%02x:%02x:%02x:%02x",
-					(unsigned int*)&g_malcolm.source_mac[0], (unsigned int*)&g_malcolm.source_mac[1],
-					(unsigned int*)&g_malcolm.source_mac[2], (unsigned int*)&g_malcolm.source_mac[3],
-					(unsigned int*)&g_malcolm.source_mac[4], (unsigned int*)&g_malcolm.source_mac[5]) == 6 ? 0 : 1);
+					(unsigned int*)&mac_addr[0], (unsigned int*)&mac_addr[1],
+					(unsigned int*)&mac_addr[2], (unsigned int*)&mac_addr[3],
+					(unsigned int*)&mac_addr[4], (unsigned int*)&mac_addr[5]) == 6 ? 0 : 1);
 	}
 
 #pragma endregion
@@ -57,11 +57,11 @@
 	int parse_arguments(int argc, char **argv) {
 		int result = 0;
 
-		if (argc != 5)													{ fprintf(stderr, "ft_malcolm: expected 4 arguments\n\n");					result = 1; }
-		if (!result && validate_ip(argv[1], &g_malcolm.source_addr))	{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[1]);		result = 1; }
-		if (!result && validate_mac(argv[2]))							{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[2]);	result = 1; }
-		if (!result && validate_ip(argv[3], &g_malcolm.target_addr))	{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[3]);		result = 1; }
-		if (!result && validate_mac(argv[4]))							{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[4]);	result = 1; }
+		if (argc != 5)															{ fprintf(stderr, "ft_malcolm: expected 4 arguments\n\n");					result = 1; }
+		if (!result && validate_ip(argv[1], &g_malcolm.source_addr))			{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[1]);		result = 1; }
+		if (!result && validate_mac(argv[2], g_malcolm.spoofed_mac))			{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[2]);	result = 1; }
+		if (!result && validate_ip(argv[3], &g_malcolm.target_addr))			{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[3]);		result = 1; }
+		if (!result && validate_mac(argv[4], g_malcolm.source_mac))				{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[4]);	result = 1; }
 
 		if (result) fprintf(stderr, "Usage: ft_malcolm <source_ip> <source_mac> <target_ip> <target_mac>\n");
 

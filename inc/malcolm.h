@@ -28,6 +28,7 @@
 		struct sockaddr_in	source_addr;
 		struct sockaddr_in	target_addr;
 		uint8_t				source_mac[6];
+		uint8_t				spoofed_mac[6];
 		struct arp_packet	packet;
 	}	t_malcolm;
 
