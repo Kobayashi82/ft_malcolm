@@ -6,13 +6,14 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 01:38:19 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:37:27 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Includes"
 
 	#include "malcolm.h"
+	#include "utils.h"
 
 	#include <stdio.h>
 	#include <unistd.h>
@@ -50,6 +51,7 @@
 #pragma region "Initialize"
 
 	static void initialize() {
+		ft_memset(&g_malcolm, 0, sizeof(t_malcolm));
 		g_malcolm.sockfd = -1;
 	}
 

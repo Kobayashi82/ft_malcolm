@@ -19,6 +19,7 @@
 	#include <errno.h>
 	#include <string.h>
 	#include <linux/if_packet.h>
+	#include <arpa/inet.h>
 
 #pragma endregion
 
@@ -38,7 +39,7 @@
 
 		// === ARP HEADER ===
 		reply.hw_type = htons(1);                    // Ethernet
-		reply.proto_type = htons(IP_PROTOCOL);       // IPv4
+		reply.proto_type = htons(ETH_P_IP);          // IPv4
 		reply.hw_len = 6;                            // MAC length
 		reply.proto_len = 4;                         // IP length
 		reply.operation = htons(2);                  // ARP Reply
@@ -47,13 +48,29 @@
 		ft_memcpy(reply.sender_mac, g_malcolm.spoofed_mac, 6);
 		reply.sender_ip = g_malcolm.source_addr.sin_addr.s_addr;
 
-		printf("DEBUG: Sending ARP reply with spoofed MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
-			g_malcolm.spoofed_mac[0], g_malcolm.spoofed_mac[1], g_malcolm.spoofed_mac[2],
-			g_malcolm.spoofed_mac[3], g_malcolm.spoofed_mac[4], g_malcolm.spoofed_mac[5]);
-
 		// Target
 		ft_memcpy(reply.target_mac, packet->sender_mac, 6);
 		reply.target_ip = packet->sender_ip;
+
+		printf("ARP Reply Details:\n");
+		printf("  Ethernet Header:\n");
+		printf("    Dest MAC: %02x:%02x:%02x:%02x:%02x:%02x\n", 
+			reply.dest_mac[0], reply.dest_mac[1], reply.dest_mac[2],
+			reply.dest_mac[3], reply.dest_mac[4], reply.dest_mac[5]);
+		printf("    Src MAC:  %02x:%02x:%02x:%02x:%02x:%02x\n", 
+			reply.src_mac[0], reply.src_mac[1], reply.src_mac[2],
+			reply.src_mac[3], reply.src_mac[4], reply.src_mac[5]);
+		printf("  ARP Payload:\n");
+		printf("    Sender MAC: %02x:%02x:%02x:%02x:%02x:%02x\n", 
+			reply.sender_mac[0], reply.sender_mac[1], reply.sender_mac[2],
+			reply.sender_mac[3], reply.sender_mac[4], reply.sender_mac[5]);
+		struct in_addr src_ip = { .s_addr = reply.sender_ip };
+		printf("    Sender IP:  %s\n", inet_ntoa(src_ip));
+		printf("    Target MAC: %02x:%02x:%02x:%02x:%02x:%02x\n", 
+			reply.target_mac[0], reply.target_mac[1], reply.target_mac[2],
+			reply.target_mac[3], reply.target_mac[4], reply.target_mac[5]);
+		struct in_addr tgt_ip = { .s_addr = reply.target_ip };
+		printf("    Target IP:  %s\n", inet_ntoa(tgt_ip));
 
 		// === ARP HEADER ===
 		// Configurar dirección de destino para sendto()
