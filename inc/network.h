@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:40:08 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 01:17:58 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:22:17 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 #pragma region "Defines"
 
+	#define SO_BINDTODEVICE	25
 	#define ETH_P_IP		0x0800
 	#define ETH_P_ARP		0x0806
 	#define ARP_REQUEST		1

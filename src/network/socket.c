@@ -6,13 +6,14 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 20:13:37 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 01:51:00 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:23:24 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Includes"
 
 	#include "malcolm.h"
+	#include "utils.h"
 
 	#include <stdio.h>
 	#include <errno.h>
@@ -31,8 +32,10 @@
 			return (1);
 		}
 
-	    int optval = 1;
-	   	setsockopt(g_malcolm.sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+		if (setsockopt(g_malcolm.sockfd, SOL_SOCKET, SO_BINDTODEVICE, g_malcolm.if_name, ft_strlen(g_malcolm.if_name)) < 0) {
+			fprintf(stderr, "Error: Failed to bind socket to device %s: %s\n", g_malcolm.if_name, strerror(errno));
+			return (1);
+		}
 
 		return (0);
 	}

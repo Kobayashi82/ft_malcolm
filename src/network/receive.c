@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:40:25 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 01:31:39 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:24:53 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@
 		g_malcolm.running = 1;
 		while (g_malcolm.running) {
 			ssize_t received = recvfrom(g_malcolm.sockfd, packet, sizeof(struct arp_packet), 0, NULL, NULL);
-			
-			printf("WTF\n");
 
 			if (received < 0) {
 				if (errno == EINTR || errno == EBADF || errno == EAGAIN || errno == EWOULDBLOCK)	continue;
 				fprintf(stderr, "Error receiving packet: %s\n", strerror(errno));					return (1);
 			}
+
+			printf("Checking if it's an ARP request has been broadcast.\n");
 
 			if (arp_request(packet)) {
 				printf("An ARP request has been broadcast.\n");
