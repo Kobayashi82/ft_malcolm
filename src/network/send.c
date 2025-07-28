@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:40:33 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:51:57 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 19:50:19 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@
 		reply.target_ip = packet->sender_ip;
 
 		// === ARP HEADER ===
-		// Configurar dirección de destino para sendto()
 		struct sockaddr_ll addr;
 		ft_memset(&addr, 0, sizeof(addr));
 		addr.sll_family = AF_PACKET;
