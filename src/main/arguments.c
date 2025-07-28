@@ -6,16 +6,13 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 22:27:45 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:44:12 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:49:42 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Includes"
 
 	#include "malcolm.h"
-	#include "utils.h"
-
-	#include <stdio.h>
 
 #pragma endregion
 

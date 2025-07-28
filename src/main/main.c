@@ -6,16 +6,14 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:45:16 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:53:24 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma region "Includes"
 
 	#include "malcolm.h"
-	#include "utils.h"
 
-	#include <stdio.h>
 	#include <unistd.h>
 	#include <signal.h>
 

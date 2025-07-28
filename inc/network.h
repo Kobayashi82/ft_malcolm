@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:40:08 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:46:54 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:52:58 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 #pragma region "Includes"
 
+	#include <errno.h>
+	#include <string.h>
+	#include <net/if.h>
+	#include <ifaddrs.h>
 	#include <arpa/inet.h>
+	#include <linux/if_packet.h>
 
 #pragma endregion
 

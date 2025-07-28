@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 22:27:38 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:42:11 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:54:10 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #pragma region "Includes"
 
 	#include "network.h"
+	#include "utils.h"
 
 #pragma endregion
 

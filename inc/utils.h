@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 13:12:28 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 01:00:18 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:54:08 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #pragma region "Includes"
 
-	#include <stddef.h>
+	#include <stdio.h>
 
 #pragma endregion
 
