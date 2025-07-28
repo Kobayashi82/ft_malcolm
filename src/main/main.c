@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:53:24 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:09:01 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@
 
 		int result = set_signals();
 		if (!result) result = parse_arguments(argc, argv);
-		if (!result) result = create_socket();
 		if (!result) result = get_interface();
+		if (!result) result = create_socket();
 		if (!result) result = receive_request();
 		if (!result) result = send_reply();
 
