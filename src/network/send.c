@@ -47,6 +47,10 @@
 		ft_memcpy(reply.sender_mac, g_malcolm.spoofed_mac, 6);
 		reply.sender_ip = g_malcolm.source_addr.sin_addr.s_addr;
 
+		printf("DEBUG: Sending ARP reply with spoofed MAC: %02x:%02x:%02x:%02x:%02x:%02x\n",
+			g_malcolm.spoofed_mac[0], g_malcolm.spoofed_mac[1], g_malcolm.spoofed_mac[2],
+			g_malcolm.spoofed_mac[3], g_malcolm.spoofed_mac[4], g_malcolm.spoofed_mac[5]);
+
 		// Target
 		ft_memcpy(reply.target_mac, packet->sender_mac, 6);
 		reply.target_ip = packet->sender_ip;

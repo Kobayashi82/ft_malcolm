@@ -63,6 +63,15 @@
 		if (!result && validate_ip(argv[3], &g_malcolm.target_addr))			{ fprintf(stderr, "ft_malcolm: invalid IP address: (%s)\n\n", argv[3]);		result = 1; }
 		if (!result && validate_mac(argv[4], g_malcolm.source_mac))				{ fprintf(stderr, "ft_malcolm: invalid MAC address: (%s)\n\n", argv[4]);	result = 1; }
 
+		if (!result) {
+			printf("DEBUG: Spoofed MAC: %02x:%02x:%02x:%02x:%02x:%02x\n", 
+				g_malcolm.spoofed_mac[0], g_malcolm.spoofed_mac[1], g_malcolm.spoofed_mac[2], 
+				g_malcolm.spoofed_mac[3], g_malcolm.spoofed_mac[4], g_malcolm.spoofed_mac[5]);
+			printf("DEBUG: Real MAC: %02x:%02x:%02x:%02x:%02x:%02x\n", 
+				g_malcolm.source_mac[0], g_malcolm.source_mac[1], g_malcolm.source_mac[2], 
+				g_malcolm.source_mac[3], g_malcolm.source_mac[4], g_malcolm.source_mac[5]);
+		}
+
 		if (result) fprintf(stderr, "Usage: ft_malcolm <source_ip> <source_mac> <target_ip> <target_mac>\n");
 
 		return (result);
