@@ -6,9 +6,16 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 15:09:01 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:21:24 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+// TODO:
+//
+//	Free en termination_handler()
+//	Revisar comentarios (creo que me he liado con sender y target en alguno)
+//	Preparar pasos y script para configurar maquina virtual
 
 #pragma region "Includes"
 
