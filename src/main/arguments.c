@@ -44,10 +44,17 @@
 			else { if (!((mac[i] >= '0' && mac[i] <= '9') || (mac[i] >= 'a' && mac[i] <= 'f') || (mac[i] >= 'A' && mac[i] <= 'F'))) return (1); }
 		}
 
-		return (sscanf(mac, "%02x:%02x:%02x:%02x:%02x:%02x",
-					(unsigned int*)&mac_addr[0], (unsigned int*)&mac_addr[1],
-					(unsigned int*)&mac_addr[2], (unsigned int*)&mac_addr[3],
-					(unsigned int*)&mac_addr[4], (unsigned int*)&mac_addr[5]) == 6 ? 0 : 1);
+		unsigned int temp[6];
+		int result = sscanf(mac, "%02x:%02x:%02x:%02x:%02x:%02x",
+					&temp[0], &temp[1], &temp[2], &temp[3], &temp[4], &temp[5]);
+		
+		if (result == 6) {
+			for (int i = 0; i < 6; i++) {
+				mac_addr[i] = (uint8_t)temp[i];
+			}
+			return (0);
+		}
+		return (1);
 	}
 
 #pragma endregion
