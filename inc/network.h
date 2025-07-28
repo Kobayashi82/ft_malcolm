@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:40:08 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:45:58 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:46:54 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 #pragma region "Structures"
 
-	struct arp_packet {
+	struct __attribute__((__packed__)) arp_packet {
 		// Ethernet header
 		uint8_t  dest_mac[6];		// Target MAC address (FF:FF:FF:FF:FF:FF for broadcast)
 		uint8_t  src_mac[6];		// Sender MAC address
