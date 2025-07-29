@@ -6,16 +6,9 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 15:21:24 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:53:49 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-// TODO:
-//
-//	Free en termination_handler()
-//	Revisar comentarios (creo que me he liado con sender y target en alguno)
-//	Preparar pasos y script para configurar maquina virtual
 
 #pragma region "Includes"
 
@@ -39,7 +32,7 @@
 		g_malcolm.running = 0;
 
 		if (g_malcolm.sockfd != -1) close(g_malcolm.sockfd);
-		// freeifaddrs(ifaddr);
+		g_malcolm.sockfd = -1;
 	}
 
 	static int set_signals() {
@@ -58,13 +51,14 @@
 	int main(int argc, char **argv) {
 		ft_memset(&g_malcolm, 0, sizeof(t_malcolm));
 		g_malcolm.sockfd = -1;
+		g_malcolm.running = 1;
 
 		int result = set_signals();
-		if (!result) result = parse_arguments(argc, argv);
-		if (!result) result = get_interface();
-		if (!result) result = create_socket();
-		if (!result) result = receive_request();
-		if (!result) result = send_reply();
+		if (!result && g_malcolm.running) result = parse_arguments(argc, argv);
+		if (!result && g_malcolm.running) result = get_interface();
+		if (!result && g_malcolm.running) result = create_socket();
+		if (!result && g_malcolm.running) result = receive_request();
+		if (!result && g_malcolm.running) result = send_reply();
 
 		if (result != 1) fprintf(stdout, "\rExiting program...\n");
 

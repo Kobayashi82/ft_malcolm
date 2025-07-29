@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 16:37:52 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:52:07 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:47:26 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@
 		if (getifaddrs(&ifaddr)) return (1);
 
 		for (ifa = ifaddr; ifa; ifa = ifa->ifa_next) {
+			if (!g_malcolm.running) { freeifaddrs(ifaddr); return (2); }
+
 			if (!ifa->ifa_addr || ifa->ifa_addr->sa_family != AF_INET) continue;
 
 			sa = (struct sockaddr_in *)ifa->ifa_addr;
 			mask = (struct sockaddr_in *)ifa->ifa_netmask;
 
 			// Skip loopback interface (127.0.0.1)
-			if (sa->sin_addr.s_addr == htonl(INADDR_LOOPBACK)) continue;
+			if (sa->sin_addr.s_addr == LOOPBACK_IP) continue;
 
 			uint32_t interface_network = sa->sin_addr.s_addr & mask->sin_addr.s_addr;
 			uint32_t source_network = g_malcolm.source_addr.sin_addr.s_addr & mask->sin_addr.s_addr;

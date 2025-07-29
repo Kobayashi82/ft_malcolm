@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:40:33 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 19:50:19 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:52:19 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 		// === ETHERNET HEADER ===
 		ft_memcpy(reply.dest_mac, packet->sender_mac, 6);
-		ft_memcpy(reply.src_mac, g_malcolm.spoofed_mac, 6); // spofed
+		ft_memcpy(reply.src_mac, g_malcolm.spoofed_mac, 6); // spoofed
 		reply.eth_type = htons(ETH_P_ARP);
 
 		// === ARP HEADER ===
@@ -37,7 +37,7 @@
 		reply.proto_len = 4;                         // IP length
 		reply.operation = htons(2);                  // ARP Reply
 
-		// Sender (spofeados)
+		// Sender (spoofed)
 		ft_memcpy(reply.sender_mac, g_malcolm.spoofed_mac, 6);
 		reply.sender_ip = g_malcolm.source_addr.sin_addr.s_addr;
 
@@ -45,7 +45,7 @@
 		ft_memcpy(reply.target_mac, packet->sender_mac, 6);
 		reply.target_ip = packet->sender_ip;
 
-		// === ARP HEADER ===
+		// === SOCKET ADDRESS ===
 		struct sockaddr_ll addr;
 		ft_memset(&addr, 0, sizeof(addr));
 		addr.sll_family = AF_PACKET;

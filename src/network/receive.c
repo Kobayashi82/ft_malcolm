@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:40:25 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/28 13:51:36 by vzurera-         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:52:17 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@
 
 		struct arp_packet *packet = &g_malcolm.packet;
 
-		g_malcolm.running = 1;
 		while (g_malcolm.running) {
 			ssize_t received = recvfrom(g_malcolm.sockfd, packet, sizeof(struct arp_packet), 0, NULL, NULL);
 
 			if (received < 0) {
-				if (errno == EINTR || errno == EBADF || errno == EAGAIN || errno == EWOULDBLOCK)	continue;
+				if (errno == EINTR || (errno == EBADF && g_malcolm.sockfd == -1) || errno == EAGAIN || errno == EWOULDBLOCK)	continue;
 				fprintf(stderr, "Error receiving packet: %s\n", strerror(errno));					return (1);
 			}
 
@@ -53,8 +52,6 @@
 				printf("An ARP request has been broadcast.\n");
 				printf("    mac address of request: %02x:%02x:%02x:%02x:%02x:%02x\n", packet->sender_mac[0], packet->sender_mac[1], packet->sender_mac[2], packet->sender_mac[3], packet->sender_mac[4], packet->sender_mac[5]);
 
-				struct in_addr ip_addr;
-				ip_addr.s_addr = packet->sender_ip;
 				char ip[INET_ADDRSTRLEN];
 				inet_ntop(AF_INET, &packet->sender_ip, ip, INET_ADDRSTRLEN);
 				printf("    IP address of request: %s\n", ip);
