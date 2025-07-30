@@ -145,6 +145,19 @@ arp -a
 
 Deberías ver la asociación falsa IP → MAC que configuraste.
 
+### Comandos Útiles
+
+|         Acción         |               Comando               |
+| ---------------------- | ----------------------------------- |
+| Ver info del adaptador | `ip link`                           |
+| Ver tráfico de red     | `sudo tcpdump -i <if_name>`         |
+| Limpiar tabla ARP      | `sudo arp -d <ip>`                  |
+| Ver tabla ARP          | `arp -a`                            |
+| Añadir ip              | `ip addr add <ip/24> dev <if_name>` |
+| Eliminar ip            | `ip addr del <ip/24> dev <if_name>` |
+| Ver ip                 | `ip addr show <if_name>`            |
+|                                                              |
+
 ## 🛠️ Funcionalidades
 
 ### Parte Obligatoria
