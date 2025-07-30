@@ -6,7 +6,7 @@
 #    By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/05 21:39:40 by vzurera-          #+#    #+#              #
-#    Updated: 2025/07/27 21:51:23 by vzurera-         ###   ########.fr        #
+#    Updated: 2025/07/30 20:15:25 by vzurera-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -254,7 +254,7 @@ _delete_objects:
 
 wipe:
 	@rm -rf $(BLD_DIR)
-	@rm -rf 
+	@rm -rf $(NAME)
 
 # ─────────────────── #
 # ── PROGRESS LINE ── #
