@@ -11,6 +11,8 @@
 
 # ft_malcolm
 
+> Este proyecto es únicamente para fines educativos como parte del curriculum de 42 School. El código debe usarse solo en entornos controlados, como máquinas virtuales. Interceptar tráfico real sin autorización apropiada es ilegal y poco ético.
+
 ## 🎯 Descripción
 
 **ft_malcolm** es una implementación educativa de ARP Spoofing (envenenamiento ARP), uno de los ataques Man in the Middle más básicos y fundamentales en seguridad de redes. Este proyecto forma parte de la rama de seguridad de red de 42 School.
