@@ -196,7 +196,6 @@ fclean:
 	@if [ -f $(NAME) ]; then \
 		printf "\t$(CYAN)Deleting... $(YELLOW)library$(NC)"; \
 		rm -f $(NAME); \
-		rm -f libft_malloc$(LIB_EXT); \
 	fi
 	@printf "\r%50s\r\t$(CYAN)Deleted     $(GREEN)✓ $(YELLOW)library$(NC)\n"
 	@find $(BLD_DIR) -type d -empty -delete >/dev/null 2>&1 || true
@@ -215,9 +214,9 @@ fclean:
 
 _title:
 	@clear
-	@printf "\n$(NC)\t$(INV_CYAN) $(BG_CYAN)$(FG_YELLOW)★$(INV_CYAN) $(BG_CYAN)$(FG_YELLOW)★$(INV_CYAN) $(BG_CYAN)$(FG_YELLOW)★\
+	@printf "\n$(NC)\t$(INV_CYAN) $(BG_CYAN)$(FG_YELLOW) $(INV_CYAN) $(BG_CYAN)$(FG_YELLOW) $(INV_CYAN) $(BG_CYAN)$(FG_YELLOW) \
 	$(INV_CYAN) $(NC)$(INV_CYAN)$(shell echo $(NAME) | tr a-z A-Z | tr '_' ' ')$(INV_CYAN) \
-	$(BG_CYAN)$(FG_YELLOW)★$(INV_CYAN) $(BG_CYAN)$(FG_YELLOW)★$(INV_CYAN) $(BG_CYAN)$(FG_YELLOW)★$(INV_CYAN) $(NC)\n"
+	$(BG_CYAN)$(FG_YELLOW) $(INV_CYAN) $(BG_CYAN)$(FG_YELLOW) $(INV_CYAN) $(BG_CYAN)$(FG_YELLOW) $(INV_CYAN) $(NC)\n"
 	@printf "\t$(WHITE)────────────────────────\n$(NC)"
 
 # ───────────── #
