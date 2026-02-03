@@ -9,6 +9,10 @@
 
 </div>
 
+<div align="center">
+  <img src="/ft_malcolm.png">
+</div>
+
 # ft_malcolm
 
 > Este proyecto es únicamente para fines educativos como parte del curriculum de 42 School. El código debe usarse solo en entornos controlados, como máquinas virtuales. Interceptar tráfico real sin autorización apropiada es ilegal y poco ético.
