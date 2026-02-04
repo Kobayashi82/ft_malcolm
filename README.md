@@ -5,7 +5,7 @@
 ![Protocol ARP](https://img.shields.io/badge/Protocol-ARP-green?style=for-the-badge)
 ![C Language](https://img.shields.io/badge/Language-C-red?style=for-the-badge)
 
-*Una introducción práctica a los ataques Man in the Middle mediante ARP Spoofing*
+*A practical introduction to Man-in-the-Middle attacks via ARP spoofing*
 
 </div>
 
@@ -15,90 +15,92 @@
 
 # ft_malcolm
 
-> Este proyecto es únicamente para fines educativos como parte del curriculum de 42 School. El código debe usarse solo en entornos controlados, como máquinas virtuales. Interceptar tráfico real sin autorización apropiada es ilegal y poco ético.
+[README en Español](README_es.md)
 
-## 🎯 Descripción
+> This project is strictly for educational purposes as part of the 42 School curriculum. The code must be used only in controlled environments, such as virtual machines. Intercepting real traffic without proper authorization is illegal and unethical.
 
-**ft_malcolm** es una implementación educativa de ARP Spoofing (envenenamiento ARP), uno de los ataques Man in the Middle más básicos y fundamentales en seguridad de redes. Este proyecto forma parte de la rama de seguridad de red de 42 School.
+## 🎯 Description
 
-### ¿Qué es ARP Spoofing?
+**ft_malcolm** is an educational implementation of ARP Spoofing (ARP poisoning), one of the most basic and fundamental Man-in-the-Middle attacks in network security. This project is part of the 42 School network security branch.
 
-El Address Resolution Protocol (ARP) es un protocolo de la capa 2 del modelo OSI que permite asociar direcciones IP con direcciones MAC en redes locales. Sin embargo, ARP tiene vulnerabilidades inherentes:
+### What is ARP Spoofing?
 
-- **No tiene autenticación**: Cualquier dispositivo puede enviar respuestas ARP
-- **Confía por defecto**: Las tablas ARP se actualizan automáticamente
-- **Sin verificación**: No valida la legitimidad de las respuestas
+The Address Resolution Protocol (ARP) is a layer 2 protocol in the OSI model that maps IP addresses to MAC addresses on local networks. However, ARP has inherent vulnerabilities:
 
-### ¿Cómo funciona ft_malcolm?
+- **No authentication**: Any device can send ARP replies
+- **Default trust**: ARP tables update automatically
+- **No verification**: It does not validate reply legitimacy
 
-1. **Escucha pasiva**: Monitorea la red esperando requests ARP broadcast del objetivo
-2. **Detección**: Identifica cuando el target solicita la IP que queremos suplantar
-3. **Respuesta maliciosa**: Envía una respuesta ARP falsa asociando nuestra MAC con la IP objetivo
-4. **Envenenamiento exitoso**: La tabla ARP del target queda comprometida
+### How does ft_malcolm work?
+
+1. **Passive listening**: Monitors the network waiting for ARP broadcast requests from the target
+2. **Detection**: Identifies when the target requests the IP we want to spoof
+3. **Malicious reply**: Sends a fake ARP reply associating our MAC with the target IP
+4. **Successful poisoning**: The target's ARP table is compromised
 
 ```
-[Target] ----ARP Request: "¿Quién tiene 192.168.1.1?"----- [Broadcast]
+[Target] ----ARP Request: "Who has 192.168.1.1?"----- [Broadcast]
                                     |
-[ft_malcolm] ----ARP Reply: "192.168.1.1 es aa:bb:cc:dd:ee:ff"----- [Target]
+[ft_malcolm] ----ARP Reply: "192.168.1.1 is aa:bb:cc:dd:ee:ff"----- [Target]
 ```
 
-## 📚 Modelo OSI
+## 📚 OSI Model
 
-### ¿Qué es?
-Un modelo teórico de 1984 que explica cómo se comunican las computadoras dividiendo el proceso en 7 capas.
+### What is it?
+A theoretical model from 1984 that explains how computers communicate by dividing the process into 7 layers.
 
-### Las 7 Capas (de arriba a abajo)
+### The 7 layers (top to bottom)
 
-- **7. Aplicación** → Lo que ves (navegador, email, WhatsApp)
-- **6. Presentación** → Cifrado y compresión de datos (TLS/SSL, SSH)
-- **5. Sesión** → Inicia, mantiene y cierra conexiones
-- **4. Transporte** → Divide y reordena los datos (TCP/UDP y puertos)
-- **3. Red** → Encuentra el camino (direcciones IP y routers)
-- **2. Enlace** → Se encarga de la entrega en la red local usando direcciones MAC (ARP y switches)
-- **1. Física** → Hardware y señales eléctricas (cables, fibra óptica, ondas de radio)
+- **7. Application** → What you see (browser, email, WhatsApp)
+- **6. Presentation** → Encryption and compression (TLS/SSL, SSH)
+- **5. Session** → Starts, maintains, and closes connections
+- **4. Transport** → Splits and reorders data (TCP/UDP and ports)
+- **3. Network** → Finds the path (IP addresses and routers)
+- **2. Data Link** → Delivers on local network using MAC addresses (ARP and switches)
+- **1. Physical** → Hardware and electrical signals (cables, fiber, radio waves)
 
-## ¿Cómo funciona?
+## How does it work?
 
-- Imagina enviar una carta:
+- Imagine sending a letter:
 
-#### 📤 Envío (de arriba hacia abajo)
+#### 📤 Sending (top to bottom)
 
-| N | Capa                             | Analogía                                                        |
+| N | Layer                             | Analogy                                                        |
 | - | -------------------------------- | --------------------------------------------------------------- |
-| 7 | Aplicación                       | Escribes el mensaje                                             |
-| 6 | Presentación, Sesión, Transporte | Cifras el mensaje, los divides en partes y lo metes en un sobre |
-| 3 | Red                              | El cartero encuentra la dirección                               |
-| 2 | Enlace                           | Se lleva al camión repartidor                                   |
-| 1 | Física                           | Viaja por carreteras físicas                                    |
+| 7 | Application                       | You write the message                                           |
+| 6 | Presentation, Session, Transport | You encrypt it, split it up, and put it in an envelope          |
+| 3 | Network                            | The mail carrier finds the address                              |
+| 2 | Data Link                          | It goes to the delivery truck                                   |
+| 1 | Physical                           | It travels on physical roads                                    |
 
-#### 📥 Recepción (de abajo hacia arriba)
+#### 📥 Receiving (bottom to top)
 
-| N | Capa                             | Analogía                                       |
+| N | Layer                             | Analogy                                       |
 | - | -------------------------------- | ---------------------------------------------- |
-| 7 | Física                           | Llega por las carreteras                       |
-| 6 | Enlace                           | El camión repartidor lo entrega                |
-| 3 | Red                              | Se lee la dirección de destino                 |
-| 2 | Transporte, Sesión, Presentación | Se abre el sobre, se reconstruye y se descifra |
-| 1 | Aplicación                       | Se lee el mensaje                              |
+| 7 | Physical                           | It arrives via the roads                       |
+| 6 | Data Link                          | The delivery truck hands it over               |
+| 3 | Network                            | The destination address is read                |
+| 2 | Transport, Session, Presentation  | The envelope is opened, reconstructed, and decrypted |
+| 1 | Application                       | The message is read                            |
 
-### ¿Se usa hoy en día?
+### Is it used today?
 
-**En la teoría: SÍ** → Sigue siendo el estándar para entender y enseñar redes
+**In theory: YES** → Still the standard for understanding and teaching networks
 
-**En la práctica: NO** → Internet usa TCP/IP (4 capas), no OSI
+**In practice: NO** → The Internet uses TCP/IP (4 layers), not OSI
 
-#### Lo que realmente usamos:
-- **Internet funciona con TCP/IP** (más simple, 4 capas)
-- **OSI es principalmente educativo** y para troubleshooting
-- **Los conceptos siguen siendo válidos**, pero implementados de forma diferente
+#### What we actually use:
+- **The Internet runs on TCP/IP** (simpler, 4 layers)
+- **OSI is mainly educational** and for troubleshooting
+- **The concepts remain valid**, but implemented differently
 
-### ¿Para qué sirve hoy?
-1. **Entender cómo funcionan las redes** de forma ordenada
-2. **Resolver problemas**: "¿Es problema de cable, de IP, o de la aplicación?"
-3. **Comunicarse entre técnicos** usando un lenguaje común
-4. **Diseñar redes** separando responsabilidades
+### What is it for today?
+1. **Understand how networks work** in an organized way
+2. **Troubleshoot**: "Is it a cable issue, IP issue, or application issue?"
+3. **Communicate between technicians** using a common language
+4. **Design networks** by separating responsibilities
 
-## 🔧 Compilación
+## 🔧 Build
 
 ```bash
 git clone git@github.com:Kobayashi82/ft_malcolm.git
@@ -106,30 +108,30 @@ cd ft_malcolm
 make
 ```
 
-## 🖥️ Uso
+## 🖥️ Usage
 
-### Sintaxis
+### Syntax
 
 ```bash
 sudo ./ft_malcolm <source_ip> <source_mac> <target_ip> <target_mac>
 ```
 
-### Parámetros
+### Parameters
 
-| Parámetro | Descripción | Ejemplo |
+| Parameter | Description | Example |
 |-----------|-------------|---------|
-| `source_ip` | IP que queremos suplantar | `192.168.1.1` |
-| `source_mac` | MAC falsa a asociar | `aa:bb:cc:dd:ee:ff` |
-| `target_ip` | IP del dispositivo objetivo | `192.168.1.100` |
-| `target_mac` | MAC real del objetivo | `00:11:22:33:44:55` |
+| `source_ip` | IP we want to spoof | `192.168.1.1` |
+| `source_mac` | Fake MAC to associate | `aa:bb:cc:dd:ee:ff` |
+| `target_ip` | Target device IP | `192.168.1.100` |
+| `target_mac` | Real target MAC | `00:11:22:33:44:55` |
 
-### Ejemplo de Uso
+### Usage example
 
 ```bash
 sudo ./ft_malcolm 10.12.255.255 ff:bb:ff:ff:ee:ff 10.12.10.22 10:dd:b1:aa:bb:cc
 ```
 
-**Salida esperada:**
+**Expected output:**
 
 ```
 Found available interface: eth0
@@ -141,148 +143,148 @@ Sent an ARP reply packet, you may now check the arp table on the target.
 Exiting program...
 ```
 
-### Verificación del Ataque
+### Attack verification
 
-En el dispositivo objetivo, verifica la tabla ARP:
+On the target device, check the ARP table:
 
 ```bash
 arp -a
 ```
 
-Deberías ver la asociación falsa IP → MAC que configuraste.
+You should see the fake IP → MAC association you configured.
 
-### Comandos Útiles
+### Useful commands
 
-|         Acción         |               Comando               |
+| Action | Command |
 | ---------------------- | ----------------------------------- |
-| Ver info del adaptador | `ip link`                           |
-| Ver tráfico de red     | `sudo tcpdump -i <if_name>`         |
-| Limpiar tabla ARP      | `sudo arp -d <ip>`                  |
-| Ver tabla ARP          | `arp -a`                            |
-| Añadir ip              | `ip addr add <ip/24> dev <if_name>` |
-| Eliminar ip            | `ip addr del <ip/24> dev <if_name>` |
-| Ver ip                 | `ip addr show <if_name>`            |
-|                                                              |
+| Show adapter info | `ip link` |
+| View network traffic | `sudo tcpdump -i <if_name>` |
+| Clear ARP table | `sudo arp -d <ip>` |
+| View ARP table | `arp -a` |
+| Add IP | `ip addr add <ip/24> dev <if_name>` |
+| Remove IP | `ip addr del <ip/24> dev <if_name>` |
+| Show IP | `ip addr show <if_name>` |
+| | |
 
-## 🛠️ Funcionalidades
+## 🛠️ Features
 
-### Parte Obligatoria
+### Mandatory part
 
-- ✅ Soporte IPv4 únicamente
-- ✅ Validación de IPs y MACs
-- ✅ Detección de ARP requests broadcast
-- ✅ Envío de ARP reply único y salida
-- ✅ Gestión de errores robusta
-- ✅ Manejo de señales
+- ✅ IPv4-only support
+- ✅ IP and MAC validation
+- ✅ Detection of ARP broadcast requests
+- ✅ Single ARP reply send and exit
+- ✅ Robust error handling
+- ✅ Signal handling
 
-### Funciones Usadas
+### Functions used
 
-| Categoría                     | Función            | Descripción                                                                                                             |
+| Category | Function | Description |
 |-------------------------------|--------------------|-------------------------------------------------------------------------------------------------------------------------|
-| Interfaces de Red             | `getifaddrs`       | Obtiene una lista completa de las interfaces de red disponibles y sus direcciones asociadas (por ejemplo, eth0, wlan0)  |
-| Interfaces de Red             | `freeifaddrs`      | Libera la memoria utilizada por la estructura de datos devuelta por `getifaddrs`                                        |
-| Interfaces de Red             | `if_nametoindex`   | Obtiene el índice numérico de una interfaz de red a partir de su nombre                                                 |
-| Conversión de Direcciones IP  | `inet_pton`        | Convierte direcciones IP en formato texto a binario de red                                                              |
-| Conversión de Direcciones IP  | `inet_ntop`        | Convierte direcciones IP binarias a formato texto                                                                       |
-| Conversión de Orden de Bytes  | `htons`            | Convierte del orden de bytes del host al orden de bytes de red                                                          |
-| Conversión de Orden de Bytes  | `ntohs`            | Convierte del orden de bytes de red al orden de bytes del host                                                          |
-| Gestión de Sockets            | `socket`           | Crea un canal de comunicación para enviar y recibir datos                                                               |
-| Envío y Recepción de Datos    | `sendto`           | Envía un paquete de datos a una dirección específica                                                                    |
-| Envío y Recepción de Datos    | `recvfrom`         | Recibe datos de una dirección específica                                                                                |
-| Manejo de Errores             | `strerror`         | Convierte códigos de error del sistema en mensajes descriptivos                                                         |
-| Utilidades del Sistema        | `close`            | Cierra un descriptor de archivo o socket, liberando los recursos asociados                                              |
-| Manejo de Señales             | `signal`           | Establece manejadores para señales de terminación (SIGINT, SIGQUIT, SIGTERM, SIGHUP)                                    |
-| Salida Formateada             | `printf`           | Imprime texto formateado a la salida estándar (stdout)                                                                  |
-| Salida Formateada             | `fprintf`          | Imprime texto formateado a un archivo específico o stream                                                               |
-| Salida Formateada             | `sscanf`           | Lee datos de una cadena de texto y los convierte en los tipos de datos especificados                                    |
+| Network interfaces             | `getifaddrs`       | Retrieves a full list of available network interfaces and their associated addresses (e.g., eth0, wlan0)  |
+| Network interfaces             | `freeifaddrs`      | Frees memory used by the structure returned by `getifaddrs`                                        |
+| Network interfaces             | `if_nametoindex`   | Gets the numeric index of a network interface from its name                                                 |
+| IP address conversion          | `inet_pton`        | Converts IP addresses from text to network binary                                                              |
+| IP address conversion          | `inet_ntop`        | Converts binary IP addresses to text                                                                       |
+| Byte order conversion          | `htons`            | Converts from host byte order to network byte order                                                          |
+| Byte order conversion          | `ntohs`            | Converts from network byte order to host byte order                                                          |
+| Socket management              | `socket`           | Creates a communication channel to send/receive data                                                               |
+| Data send/receive              | `sendto`           | Sends a data packet to a specific address                                                                    |
+| Data send/receive              | `recvfrom`         | Receives data from a specific address                                                                                |
+| Error handling                 | `strerror`         | Converts system error codes into descriptive messages                                                         |
+| System utilities               | `close`            | Closes a file descriptor or socket, freeing associated resources                                              |
+| Signal handling                | `signal`           | Sets handlers for termination signals (SIGINT, SIGQUIT, SIGTERM, SIGHUP)                                    |
+| Formatted output               | `printf`           | Prints formatted text to standard output (stdout)                                                                  |
+| Formatted output               | `fprintf`          | Prints formatted text to a specific file or stream                                                               |
+| Formatted output               | `sscanf`           | Reads data from a string and converts it to specified types                                    |
 
-## 📊 Conceptos Técnicos
+## 📊 Technical Concepts
 
-### Protocolo ARP (RFC 826)
+### ARP Protocol (RFC 826)
 
-ARP opera enviando broadcasts preguntando "¿Quién tiene esta IP?" y esperando respuestas con "Yo la tengo, mi MAC es X". El problema: cualquiera puede responder.
+ARP works by broadcasting "Who has this IP?" and waiting for replies with "I do, my MAC is X". The problem: anyone can respond.
 
-### Estructura del Paquete ARP
+### ARP Packet Structure
 
 ```c
 typedef struct arp_header {
-    uint16_t hardware_type;      // Tipo de hardware (Ethernet = 1)
-    uint16_t protocol_type;      // Tipo de protocolo (IPv4 = 0x0800)
-    uint8_t  hardware_len;       // Longitud MAC (6 bytes)
-    uint8_t  protocol_len;       // Longitud IP (4 bytes)
-    uint16_t operation;          // Operación (Request=1, Reply=2)
-    uint8_t  sender_mac[6];      // MAC del emisor
-    uint32_t sender_ip;          // IP del emisor
-    uint8_t  target_mac[6];      // MAC del objetivo
-    uint32_t target_ip;          // IP del objetivo
+    uint16_t hardware_type;      // Hardware type (Ethernet = 1)
+    uint16_t protocol_type;      // Protocol type (IPv4 = 0x0800)
+    uint8_t  hardware_len;       // MAC length (6 bytes)
+    uint8_t  protocol_len;       // IP length (4 bytes)
+    uint16_t operation;          // Operation (Request=1, Reply=2)
+    uint8_t  sender_mac[6];      // Sender MAC
+    uint32_t sender_ip;          // Sender IP
+    uint8_t  target_mac[6];      // Target MAC
+    uint32_t target_ip;          // Target IP
 };
 ```
 
-### Vulnerabilidades Explotadas
+### Exploited vulnerabilities
 
-1. **Falta de autenticación**: ARP no verifica identidades
-2. **Last-writer-wins**: La última respuesta ARP sobrescribe la tabla
-3. **Confianza implícita**: Los dispositivos aceptan respuestas no solicitadas
-4. **Broadcast nature**: Todos pueden escuchar y responder
+1. **Lack of authentication**: ARP does not verify identities
+2. **Last-writer-wins**: The last ARP reply overwrites the table
+3. **Implicit trust**: Devices accept unsolicited replies
+4. **Broadcast nature**: Everyone can listen and respond
 
-## ⚠️ Consideraciones Éticas y Legales
+## ⚠️ Ethical and Legal Considerations
 
-Este software está diseñado **EXCLUSIVAMENTE** para:
-- **Educación en seguridad de redes**
-- **Entornos controlados**
-- **Redes propias o con autorización explícita**
-- **Investigación académica**
+This software is designed **EXCLUSIVELY** for:
+- **Network security education**
+- **Controlled environments**
+- **Your own networks or with explicit authorization**
+- **Academic research**
 
-### Prohibido Terminantemente
+### Strictly forbidden
 
-❌ Uso en redes ajenas sin autorización  
-❌ Interceptación de tráfico real  
-❌ Actividades maliciosas  
-❌ Violación de privacidad  
-❌ Cualquier uso ilegal  
+❌ Use on networks you do not own without authorization  
+❌ Interception of real traffic  
+❌ Malicious activities  
+❌ Privacy violations  
+❌ Any illegal use  
 
-### Responsabilidad Legal
+### Legal responsibility
 
 ```
-El uso indebido de esta herramienta puede constituir:
-- Violación de leyes de ciberseguridad
-- Acceso no autorizado a sistemas
-- Interceptación ilegal de comunicaciones
-- Daños a infraestructura de red
+Misuse of this tool may constitute:
+- Violations of cybersecurity laws
+- Unauthorized access to systems
+- Illegal interception of communications
+- Damage to network infrastructure
 
-EL USUARIO ASUME TODA LA RESPONSABILIDAD LEGAL
+THE USER ASSUMES ALL LEGAL RESPONSIBILITY
 ```
 
-## 🛡️ Contramedidas y Defensas
+## 🛡️ Countermeasures and Defenses
 
-### Protecciones contra ARP Spoofing
+### Protections against ARP spoofing
 
-1. **ARP estático**: Configurar entradas ARP permanentes
-2. **Monitoreo de red**: Detectar cambios sospechosos en tablas ARP
-3. **Segmentación**: VLANs y subredes aisladas
-4. **Port Security**: Limitar MACs por puerto en switches
-5. **ARP Inspection**: Validación dinámica en switches managed
+1. **Static ARP**: Configure permanent ARP entries
+2. **Network monitoring**: Detect suspicious ARP table changes
+3. **Segmentation**: VLANs and isolated subnets
+4. **Port security**: Limit MACs per port on switches
+5. **ARP inspection**: Dynamic validation on managed switches
 
-### Detección de Ataques
+### Attack detection
 
 ```bash
-# Monitorear cambios en tabla ARP
+# Monitor ARP table changes
 watch -n 1 'arp -a'
 
-# Usar herramientas especializadas
+# Use specialized tools
 arpwatch
 arpon
 ```
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la WTFPL – [Do What the Fuck You Want to Public License](http://www.wtfpl.net/about/).
+This project is licensed under the WTFPL – [Do What the Fuck You Want to Public License](http://www.wtfpl.net/about/).
 
 ---
 
 <div align="center">
 
-**🕵️ Desarrollado como parte del curriculum de 42 School 🕵️**
+**🕵️ Developed as part of the 42 School curriculum 🕵️**
 
 *"The best defense is understanding the attack"*
 
