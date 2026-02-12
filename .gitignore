@@ -8,6 +8,9 @@
 !doc/**
 doc/ft_malcolm\ 3.0.pdf
 
+!images
+!images/**
+
 !inc
 !inc/**
 
@@ -19,4 +22,3 @@ doc/ft_malcolm\ 3.0.pdf
 !README.md
 !README_es.md
 !LICENSE
-!ft_malcolm.png

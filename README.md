@@ -10,7 +10,7 @@
 </div>
 
 <div align="center">
-  <img src="/ft_malcolm.png">
+  <img src="/images/ft_malcolm.jpg">
 </div>
 
 # ft_malcolm
