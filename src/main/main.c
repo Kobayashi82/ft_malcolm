@@ -6,7 +6,7 @@
 /*   By: vzurera- <vzurera-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:46:47 by vzurera-          #+#    #+#             */
-/*   Updated: 2025/07/30 20:13:51 by vzurera-         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:48:18 by vzurera-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@
 
 		
 		int result = set_signals();
-		if (!result && g_malcolm.running) result = parse_arguments(argc, argv);
 		if (!result && geteuid()) { fprintf(stderr, "ft_malcolm: Lacking privilege\n");  result = 1; }
+		if (!result && g_malcolm.running) result = parse_arguments(argc, argv);
 		if (!result && g_malcolm.running) result = get_interface();
 		if (!result && g_malcolm.running) result = create_socket();
 		if (!result && g_malcolm.running) result = receive_request();
